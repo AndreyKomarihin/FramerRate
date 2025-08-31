@@ -1,0 +1,66 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+
+
+  padding: 20px 60px;
+
+  background-color: #010315;
+}
+
+.linkContainer {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.categories {
+  display: flex;
+
+  color: hsla(0, 0%, 100%, .48);
+  font-family: var(--font-roboto-condensed);
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  gap: 30px;
+}
+.link {
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #fff;
+    transition: color 0.5s;
+  }
+}
+
+.activeLink {
+  color: #fff;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.search {
+  display: flex;
+
+  cursor: pointer;
+  color: hsla(0, 0%, 100%, .48);
+  gap: 10px;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #fff;
+    transition: color 0.5s;
+  }
+}
+
+.searchText {
+  font-family: var(--font-roboto-condensed);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}

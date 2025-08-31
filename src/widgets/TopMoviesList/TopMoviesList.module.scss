@@ -1,4 +1,35 @@
+.promoMovieContainer {
+  margin: 160px auto 0 auto;
+  width: 86%;
+  text-align: center;
+}
 
-.moviesList {
-  margin-top: 120px;
+.promoMovieBox {
+  display: flex;
+
+
+
+  gap: 24px;
+}
+
+.promoMovie {
+  border-radius: 24px;
+  transition: scale 0.3s ease-in-out;
+
+  &:hover{
+    transition: scale 0.5s ease-in-out;
+    scale: 1.05;
+  }
+}
+
+.title {
+  display: inline-block;
+  padding-bottom: 40px;
+  height: auto;
+
+  font-size: 38px;
+  line-height: 1;
+  font-family: var(--font-roboto-condensed);
+  font-weight: 500;
+  text-transform: uppercase;
 }

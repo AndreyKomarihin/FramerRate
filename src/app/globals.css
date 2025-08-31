@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+*{
+  box-sizing: border-box;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,7 +18,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #101223;
     --foreground: #ededed;
   }
 }
@@ -24,3 +28,9 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.react-multi-carousel-track {
+  display: flex;
+  overflow: hidden;
+}
+

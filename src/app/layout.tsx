@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
+import {Provider} from "react-redux";
+import store from "@/app/store/store";
+import Providers from "@/app/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const robotoCondensed = Roboto_Condensed({
+    subsets: ['latin', 'cyrillic'],
+    weight: ['400', '700'],
+    variable: '--font-roboto-condensed',
 });
 
 const geistMono = Geist_Mono({
@@ -23,11 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={robotoCondensed.variable} suppressHydrationWarning={true}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <Providers>
         {children}
+      </Providers>
       </body>
     </html>
   );

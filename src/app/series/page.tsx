@@ -3,17 +3,13 @@
 import {Header} from "@/components/Header/Header";
 import {useRouter} from "next/navigation";
 
-export default function Movies () {
-
+export default function Series () {
     const router = useRouter()
 
-    const handleNavigate = (route:string) => {
-        router.push(route)
-    }
 
     return (
         <>
-            <Header navigate = {handleNavigate}/>
+            <Header navigate = {(route) => router.push(route)}/>
         </>
 )
 }

@@ -1,0 +1,106 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  max-width: 300px;
+  height: 100%;
+  padding: 12px;
+  background-color: #010315;
+  border-radius: 24px;
+  cursor: pointer;
+
+  gap: 20px;
+}
+
+.movieImg {
+  height: 400px;
+  width: 300px;
+  border-radius: 24px;
+  transition: filter 0.3s;
+}
+
+.hidden {
+  transition: filter 0.4s;
+  filter: grayscale(0.6) blur(4px) brightness(0.5);
+}
+
+.moviesName {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.mouseEnterContainer {
+  display: flex;
+  flex-direction: column;
+
+  opacity: 0;
+  transition: opacity 0.4s;
+  position: absolute;
+  padding: 16px 60px;
+  text-align: center;
+
+  gap: 6px;
+}
+
+.mouseEnterContainerActive {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.rating {
+  position: absolute;
+  padding: 12px;
+  margin-top: 2px;
+
+  left: 0;
+  top: 0;
+
+  border-radius: 50%;
+  background-color: #010315;
+  transition: box-shadow 0.4s;
+}
+
+.ratingBlur {
+  box-shadow: 0.5px 0.5px 6px #010315;
+  transition: box-shadow 0.4s;
+}
+
+.integerPart {
+  font-size: 24px;
+}
+
+.decimalPart {
+  font-size: 18px;
+}
+
+.movieInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 24px 24px;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  gap: 6px;
+}
+
+.movieInfoText {
+  color: #dddddd;
+}
+
+.series {
+  color: #d1d1d1;
+}
+
+.genres:first-letter {
+  text-transform: uppercase;
+}
+

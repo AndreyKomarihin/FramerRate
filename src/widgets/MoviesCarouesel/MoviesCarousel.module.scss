@@ -1,0 +1,130 @@
+.category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+  margin-top: 160px;
+  margin-bottom: 40px;
+
+  gap: 24px;
+}
+
+.categoryText {
+  display: inline-block;
+  height: auto;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.carousel {
+  margin: 0 auto;
+  width: 90%;
+  overflow: hidden;
+}
+
+.carouselSkeleton {
+  position: relative;
+  margin: 238px auto 0 auto;
+
+  max-width: 85%;
+  background-color: rgba(1, 3, 21, 0.51);
+  height: 400px;
+  box-shadow: inset 10px 0 25px #101223, inset -10px 0 25px #101223;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+                    30deg,
+                    transparent 0%,
+                    transparent 40%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    transparent 60%,
+                    transparent 100%
+    );
+
+    animation: shimmer 2s infinite linear;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(100%);
+  }
+  100% {
+    transform: translateX(100%) translateY(-100%);
+  }
+}
+
+.carouselWrapper {
+  position: relative;
+}
+
+.carouselContainer {
+  display: flex;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    z-index: 2;
+    box-shadow: inset 50px 0 5px -5px #101223, -20px 0 5px -5px #101223;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    z-index: 2;
+    box-shadow: inset -50px 0 5px -5px #101223, 20px 0 5px -5px #101223;
+  }
+}
+
+.carouseDotList {
+  display: flex;
+
+
+  gap: 20px;
+}
+
+.carouselItem {
+  max-height: 500px;
+  width: initial;
+}
+
+.arrowLeft {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  z-index: 99;
+}
+
+.arrowRight {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99;
+}
+
+.errorContainer {
+  margin: 238px auto 0 auto;
+  padding: 100px 0 100px 0;
+
+  background-color: #010315;
+  text-align: center;
+  width: 40%;
+  border-radius: 48px;
+}

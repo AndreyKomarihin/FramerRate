@@ -1,22 +1,13 @@
-type Movie = {
-    id: number
-    name: string
-    rating: {
-        kp: number
-    }
-    poster: {
-        url: string
-    }
-    year: number
-    type: 'movie' | 'tv-series'
-    countries: [{name: string}]
-    genres: [{name: string}]
-    seriesLength: number
+export type Trailer = {
+    url: string;
+    name: string;
+    site: string;
+    type: "TRAILER" | "TEASER" | "CLIP" | "FEATURETTE";
 };
 
-export const fetchPopularFilms = async (): Promise<{ data: Movie[] | null, error: string | null }> => {
+export const fetchTrailer = async (movieId: number): Promise<{ data: Trailer [] | null, error: string | null }> => {
     try {
-        const response = await fetch('https://api.kinopoisk.dev/v1.4/movie?page=1&limit=10&sortField=rating.kp&sortType=-1', {
+        const response = await fetch(`https://api.kinopoisk.dev/v1.4/movie/${movieId}/videos`, {
             headers: {
                 'X-API-KEY': process.env.NEXT_PUBLIC_KINO_API_KEY || '698WV0C-47PMN6R-K9H1CZD-MRNW7RB',
                 'Accept': 'application/json',
@@ -24,11 +15,15 @@ export const fetchPopularFilms = async (): Promise<{ data: Movie[] | null, error
         })
 
         const data = await response.json()
-        return { data: data.docs || null, error: null }
+        const trailers = data.videos?.filter((video: any) =>
+            video.type === "TRAILER" &&
+            (video.site === "youtube" || video.site === "vk")
+        ) || [];
+        return { data: trailers, error: null }
     } catch (error) {
         if (error instanceof Error) {
             return { data: null, error: error.message }
         }
-        return { data: null, error: 'Неизвестная ошибка' }
+        return { data: null, error: "Неизвестная ошибка" }
     }
 };

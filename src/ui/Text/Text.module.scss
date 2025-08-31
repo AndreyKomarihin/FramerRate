@@ -1,0 +1,49 @@
+@import "@/app/fonts";
+
+.p {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.base {
+  color: #fff;
+  font-family: var(--font-roboto-condensed);
+}
+
+.size {
+  html &_12 {
+    @include font_12
+  }
+
+  &_16 {
+    @include font_16
+  }
+
+  &_18 {
+    @include font_18
+  }
+
+  &_20 {
+    @include font_20
+  }
+
+  &_24 {
+    @include font_24
+  }
+
+  &_32 {
+    @include font_32
+  }
+
+  &_38 {
+    @include font_38
+  }
+
+  &_50 {
+    @include font_50
+  }
+}
+
+.bold {
+  font-weight: 500;
+}
