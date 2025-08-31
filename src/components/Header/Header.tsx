@@ -27,8 +27,11 @@ export const Header: React.FC<HeaderProps> = ({navigate}) => {
 
             <div className={styles.searchContainer}>
                 <div className={styles.search}>
-                    <SearchOutlined className={styles.searchText} style={{ fontSize: '20px'}}/>
-                    <a onClick={() => navigate('/search')} className={styles.searchText}>Поиск</a>
+                    {activePage ?
+                        (<SearchOutlined className={styles.searchText} style={{ color: '#fff', fontSize: '20px'}}/>) :
+                        (<SearchOutlined className={styles.searchText} style={{ fontSize: '20px'}}/>)
+                    }
+                    <a onClick={() => navigate('/search')} className={cn(styles.searchText, activePage === 'search' ? styles.activeLink : null)}>Поиск</a>
                 </div>
                 <HeartOutlined className={styles.search} style={{ fontSize: '40px'}} />
             </div>

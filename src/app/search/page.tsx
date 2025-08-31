@@ -7,7 +7,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import {fetchPopularContent, Movie} from "@/app/api/popularMovies";
 import {FilmCard} from "@/ui/FilmCard/FilmCard";
 import cn from "classnames";
-
+import {ConfigProvider, Pagination, ThemeConfig} from "antd";
 
 
 export default function Search () {
@@ -20,7 +20,7 @@ export default function Search () {
     const [inputSearch, setInputSearch] = useState('')
     const [dataSearchRes, setDataSearchRes] = useState<Movie[]>([])
     const [totalPages, setTotalPages] = useState<number | null>()
-    const [truePage, setTruePage] = useState<number | null>()
+    const [currentPage, setCurrentPage] = useState<number | null>()
 
     const searchRef = useRef('')
 
@@ -32,7 +32,7 @@ export default function Search () {
         const loadData = async () => {
             try {
                 setIsLoading(true)
-                const {data: allData, error: allError, pages} = await fetchPopularContent(truePage || 1, 20)
+                const {data: allData, error: allError, pages} = await fetchPopularContent(currentPage || 1, 20)
                 if (allError) throw new Error(allError)
                 if (allData) setAllPopular(allData)
                 setTotalPages(pages)
@@ -44,7 +44,7 @@ export default function Search () {
         }
 
         loadData()
-    }, [])
+    }, [currentPage])
 
     const searchMovies = useCallback(async () => {
         const searchTerm = searchRef.current
@@ -89,8 +89,21 @@ export default function Search () {
         return () => clearTimeout(timeoutId)
     }, [inputSearch])
 
-    const handlePageChange = (page: number) => {
-        setTruePage(page)
+
+    const paginationTheme: ThemeConfig = {
+        components: {
+            Pagination: {
+                itemBg: '#010315',
+                itemActiveBg: '#010315',
+                itemActiveColorDisabled: '#fff',
+                colorBgTextHover: '#010315',
+                colorText: '#fff',
+                colorBorder: '#fff',
+                colorPrimary: '#fff',
+                colorPrimaryHover: '#fff',
+                colorTextDisabled: '#fff'
+            },
+        },
     }
 
     return (
@@ -110,7 +123,7 @@ export default function Search () {
                         )}
                         <div className={styles.moviesBox}>
                             {isSearching ? (
-                                Array.from({length: 8}).map((_, index) => (
+                                Array.from({length: 20}).map((_, index) => (
                                     <div key={index} className={styles.loadingCard}></div>
                                 ))
                             ) : inputSearch  ?
@@ -133,12 +146,12 @@ export default function Search () {
                                                 />
                                     ))
                                 ) : (
-                                    Array.from({length: 8}).map((_, index) => (
+                                    Array.from({length: 20}).map((_, index) => (
                                         <div key={index} className={styles.loadingCard}></div>
                                     ))
                                 )
                             ) : isLoading ? (
-                                Array.from({length: 12}).map((_, index) => (
+                                Array.from({length: 20}).map((_, index) => (
                                     <div key={index} className={styles.loadingCard}></div>
                                 ))
                             ) : (
@@ -161,20 +174,15 @@ export default function Search () {
                             )}
                     </div>
                     {!inputSearch && (
-                        <div>
-                            {Array.from({length: totalPages }, (_, index) => {
-                                    <button
-                                        key={index + 1}
-                                        onClick={() => handlePageChange(index + 1)}
-                                        className={styles.pageButton}
-                                    >
-                                        {index + 1}
-                                    </button>
-                                // РАЗОБРАТЬСЯ С ПАГИНАЦИЕЙ!!!!
-                            })}
+                        <div className={styles.paginationContainer}>
+                            <ConfigProvider theme={paginationTheme}>
+                                <Pagination className={styles.pagination}  showSizeChanger={false} onChange={(page) => setCurrentPage(page)} total={totalPages || 1}
+                                            align={'center'}
+
+                                />
+                            </ConfigProvider>
                         </div>
                     )}
-
                 </div>
             </main>
 

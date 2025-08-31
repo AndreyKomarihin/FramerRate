@@ -24,6 +24,7 @@ export const fetchPopularContent = async (page: number = 1, limit: number = 24, 
         url.searchParams.append('sortField', 'rating.kp')
         url.searchParams.append('sortType', '-1')
 
+        console.log(url)
         if (type) {
             url.searchParams.append('type', type)
         }
