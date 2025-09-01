@@ -24,7 +24,6 @@ export const Header: React.FC<HeaderProps> = ({navigate}) => {
                     <li onClick={() => navigate('/cartoons')}><a className={cn(styles.link, activePage === 'cartoons' ? styles.activeLink : null)}>Мультфильмы</a></li>
                 </ul>
             </div>
-
             <div className={styles.searchContainer}>
                 <div className={styles.search}>
                     {activePage ?
