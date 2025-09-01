@@ -1,0 +1,20 @@
+
+.main {
+  margin: 60px auto 0 auto;
+
+  width: 90%;
+}
+
+.favoriteTitle {
+  font-size: 48px;
+  font-family: var(--font-roboto-condensed);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.favoriteContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+

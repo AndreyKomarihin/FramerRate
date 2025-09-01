@@ -8,6 +8,7 @@ import {fetchPopularContent, Movie} from "@/app/api/popularMovies";
 import {FilmCard} from "@/ui/FilmCard/FilmCard";
 import cn from "classnames";
 import {ConfigProvider, Pagination, ThemeConfig} from "antd";
+import {paginationTheme} from "@/app/shared/constants/paginationTheme";
 
 
 export default function Search () {
@@ -89,23 +90,6 @@ export default function Search () {
         return () => clearTimeout(timeoutId)
     }, [inputSearch])
 
-
-    const paginationTheme: ThemeConfig = {
-        components: {
-            Pagination: {
-                itemBg: '#010315',
-                itemActiveBg: '#010315',
-                itemActiveColorDisabled: '#fff',
-                colorBgTextHover: '#010315',
-                colorText: '#fff',
-                colorBorder: '#fff',
-                colorPrimary: '#fff',
-                colorPrimaryHover: '#fff',
-                colorTextDisabled: '#fff'
-            },
-        },
-    }
-
     return (
         <>
             <Header navigate = {(route) => router.push(route)}/>
@@ -141,7 +125,6 @@ export default function Search () {
                                                     year={movie.year}
                                                     series={movie.seriesLength ?? undefined}
                                                     type={movie.type}
-                                                    movie={movie}
                                                     description={movie.description}
                                                 />
                                     ))
@@ -167,7 +150,6 @@ export default function Search () {
                                             year={movie.year}
                                             series={movie.seriesLength ?? undefined}
                                             type={movie.type}
-                                            movie={movie}
                                             description={movie.description}
                                         />
                                     ))

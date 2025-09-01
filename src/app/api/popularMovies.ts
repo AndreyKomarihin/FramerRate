@@ -11,7 +11,7 @@ export type Movie = {
     type: 'movie' | 'tv-series'
     countries: [{name: string}]
     genres: [{name: string}]
-    seriesLength: number
+    seriesLength?: number
     description: string
 }
 

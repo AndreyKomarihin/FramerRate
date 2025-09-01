@@ -16,7 +16,7 @@ export const Header: React.FC<HeaderProps> = ({navigate}) => {
     return (
         <header className={styles.header}>
             <div className={styles.linkContainer}>
-            <Image priority height={100} width={250} src={'/logo.jpg'} alt={'FramerRate'}/>
+            <Image onClick={() => navigate('/')} className={styles.logo} priority height={100} width={250} src={'/logo.jpg'} alt={'FramerRate'}/>
                 <ul className={styles.categories}>
                     <li onClick={() => navigate('/')}><a className={cn(styles.link, activePage === '' ? styles.activeLink : null)}>Главная</a></li>
                     <li onClick={() => navigate('/movies')}><a className={cn(styles.link, activePage === 'movies' ? styles.activeLink : null)}>Фильмы</a></li>
@@ -29,11 +29,12 @@ export const Header: React.FC<HeaderProps> = ({navigate}) => {
                 <div className={styles.search}>
                     {activePage ?
                         (<SearchOutlined className={styles.searchText} style={{ color: '#fff', fontSize: '20px'}}/>) :
-                        (<SearchOutlined className={styles.searchText} style={{ fontSize: '20px'}}/>)
+                        (<SearchOutlined className={styles.searchText} style={{ color: 'hsla(0, 0%, 100%, .48)', fontSize: '20px'}}/>)
                     }
                     <a onClick={() => navigate('/search')} className={cn(styles.searchText, activePage === 'search' ? styles.activeLink : null)}>Поиск</a>
                 </div>
-                <HeartOutlined className={styles.search} style={{ fontSize: '40px'}} />
+                    <HeartOutlined onClick={() => navigate('/favorites')} className={styles.search} style={{color: activePage === 'favorites' ? '#fff' : 'hsla(0, 0%, 100%, .48)', fontSize: '40px'}} />
+
             </div>
 
         </header>
