@@ -33,9 +33,7 @@ export const Header: React.FC<HeaderProps> = ({navigate}) => {
                     <a onClick={() => navigate('/search')} className={cn(styles.searchText, activePage === 'search' ? styles.activeLink : null)}>Поиск</a>
                 </div>
                     <HeartOutlined onClick={() => navigate('/favorites')} className={styles.search} style={{color: activePage === 'favorites' ? '#fff' : 'hsla(0, 0%, 100%, .48)', fontSize: '40px'}} />
-
             </div>
-
         </header>
     )
 }

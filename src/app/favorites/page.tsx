@@ -4,34 +4,7 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {FilmCard} from "@/ui/FilmCard/FilmCard";
 import styles from './favorites.module.scss'
-import {ConfigProvider, Pagination} from "antd";
-import {paginationTheme} from "@/app/shared/constants/paginationTheme";
-
-interface Favorites {
-    id: number
-    name: string
-    image: string
-    rate: number
-    country: string
-    genres: string
-    year: number
-    type: string
-    description: string | null
-    series?: number
-    poster?: {
-        url: string
-    }
-    rating?: {
-        kp: number
-    }
-    countries?: Array<{
-        name: string
-    }>
-    genresArray?: Array<{
-        name: string
-    }>
-    seriesLength?: number
-}
+import {Favorites} from "@/app/shared/constants/constants";
 
 export default function Favorites() {
     const router = useRouter()

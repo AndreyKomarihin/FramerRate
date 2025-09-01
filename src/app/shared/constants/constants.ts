@@ -20,3 +20,29 @@ export const CAROUSEL_RESPONSIVE = {
         partialVisibilityGutter: 40
     }
 };
+
+export interface Favorites {
+    id: number
+    name: string
+    image: string
+    rate: number
+    country: string
+    genres: string
+    year: number
+    type: string
+    description: string | null
+    series?: number
+    poster?: {
+        url: string
+    }
+    rating?: {
+        kp: number
+    }
+    countries?: Array<{
+        name: string
+    }>
+    genresArray?: Array<{
+        name: string
+    }>
+    seriesLength?: number
+}
