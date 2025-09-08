@@ -3,6 +3,7 @@ export type Movie = {
     name: string
     rating: {
         kp: number
+        imdb: number
     }
     poster: {
         url: string
@@ -18,13 +19,12 @@ export type Movie = {
 export const fetchPopularContent = async (page: number = 1, limit: number = 24, type?: 'movie' | 'tv-series'):
     Promise<{ data: Movie[] | null, error: string | null, pages?: number}> => {
     try {
-        const url = new URL('https://api.kinopoisk.dev/v1.4/movie')
+        const url = new URL(`https://api.kinopoisk.dev/v1.4/movie`)
         url.searchParams.append('page', page.toString())
         url.searchParams.append('limit', limit.toString())
         url.searchParams.append('sortField', 'rating.kp')
         url.searchParams.append('sortType', '-1')
 
-        console.log(url)
         if (type) {
             url.searchParams.append('type', type)
         }

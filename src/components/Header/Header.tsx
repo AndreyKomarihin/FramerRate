@@ -4,14 +4,25 @@ import Image from "next/image";
 import {HeartOutlined, SearchOutlined} from "@ant-design/icons";
 import {usePathname} from "next/navigation";
 import cn from "classnames";
+import {useEffect, useRef, useState} from "react";
 
 interface HeaderProps {
     navigate: (route: string) => void;
 }
 export const Header: React.FC<HeaderProps> = ({navigate}) => {
+    const [favoriteCount, setfavoriteCount] = useState(0)
+
+
     const pathname = usePathname()
 
     const activePage = pathname === '/' ? '' : pathname.replace('/', '')
+
+    useEffect(() => {
+        setfavoriteCount(Object.keys(localStorage).filter(key => localStorage.getItem(key) === 'favorite').length)
+
+    }, [favoriteCount])
+
+
 
     return (
         <header className={styles.header}>
@@ -32,8 +43,11 @@ export const Header: React.FC<HeaderProps> = ({navigate}) => {
                     }
                     <a onClick={() => navigate('/search')} className={cn(styles.searchText, activePage === 'search' ? styles.activeLink : null)}>Поиск</a>
                 </div>
+                <div className={styles.favoritesContainer}>
                     <HeartOutlined onClick={() => navigate('/favorites')} className={styles.search} style={{color: activePage === 'favorites' ? '#fff' : 'hsla(0, 0%, 100%, .48)', fontSize: '40px'}} />
-            </div>
+                    <p className={styles.allFavorites}>{favoriteCount}</p>
+                </div>
+                </div>
         </header>
     )
 }

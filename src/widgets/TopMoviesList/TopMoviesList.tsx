@@ -26,12 +26,12 @@ export const TopMoviesList = () => {
                 if (allData) setAllPopular(allData)
 
                 setIsLoading(prev => ({...prev, movies: true}))
-                const {data: moviesData, error: moviesError} = await fetchPopularContent(24, 'movie')
+                const {data: moviesData, error: moviesError} = await fetchPopularContent(1, 24, 'movie')
                 if (moviesError) throw new Error(moviesError)
                 if (moviesData) setPopularMovies(moviesData)
 
                 setIsLoading(prev => ({...prev, series: true}))
-                const {data: seriesData, error: seriesError} = await fetchPopularContent(24, 'tv-series')
+                const {data: seriesData, error: seriesError} = await fetchPopularContent(1, 24,'tv-series')
                 if (seriesError) throw new Error(seriesError)
                 if (seriesData) setPopularSeries(seriesData)
 

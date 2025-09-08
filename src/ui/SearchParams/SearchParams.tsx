@@ -5,48 +5,75 @@ import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 interface Props {
-    category: string;
+    category: 'movie' | 'tv-series' | 'cartoon' | ''
 }
 
 export const SearchParams: React.FC<Props> = ({category}) => {
 
-    const [genre, setGenre ] = useState('')
-    const [year, setYear ] = useState('')
-    const [country, setCountry ] = useState('')
+    const [filters, setFilters] = useState({
+        genre: '',
+        year: '',
+        country: '',
+        type: category
+    })
     const [inputDisabled, setInputDisabled ] = useState(false)
     const [movies, setMovies ] = useState([])
 
     const [activeConfirm, setActiveConfirm ] = useState(false)
-
-    const yearRef = useRef('');
+    const [isClearBtn, setIsClearBtn] = useState(false)
+    const [inputKey, setInputKey] = useState(0)
 
     const fetchFilms = async () =>  {
-        if (!genre && !year && !country && !yearRef.current) return
 
-        const response = await fetch(`https://api.kinopoisk.dev/v1.4/${category}?limit=250${genre ? `&genre.name=${genre}` : ''}${year ? `&year=${year}` : yearRef.current ? `&year=${yearRef.current}` : ''}${country ? `&countries.name=${country}` : ''}`, {
+        try {
+            const url = new URL(`https://api.kinopoisk.dev/v1.4/movie?limit=250`)
+            if (filters.genre) url.searchParams.append('genres.name', filters.genre)
+            if (filters.year) url.searchParams.append('year', filters.year)
+            if (filters.country) url.searchParams.append('countries.name', filters.country)
 
-            headers: {
-                'X-API-KEY': process.env.NEXT_PUBLIC_KINO_API_KEY || '50J8NSB-09M4XRW-HDWAK1J-EQBTHFT',
-                'Accept': 'application/json',
-            },
-        })
+        if (category) {
+            url.searchParams.append('type', category)
+        }
 
-        const data = await response.json()
-        setMovies(data.docs)
-        return console.log(data)
-    }
+            if (url.toString() === '') return
+
+
+            const response = await fetch(url.toString(), {
+                    headers: {
+                        'X-API-KEY': process.env.NEXT_PUBLIC_KINO_API_KEY || '698WV0C-47PMN6R-K9H1CZD-MRNW7RB',
+                        'Accept': 'application/json',
+                    },
+                }
+            )
+
+
+
+                console.log(response)
+
+            const data = await response.json()
+                console.log(data)
+                setMovies(data.docs)
+        dispatch({
+            type: 'SET_OPTIONS',
+            payload: {
+                movies: data.docs,
+                loading: false
+            }
+        })}catch (error) {
+            console.log('Ошибка запроса:', error)}
+        }
+
 
     const handleCustomYear = (year: string) => {
-        yearRef.current = year
-        console.log(yearRef)
+        filters.year = year
+
     }
 
     const handleClearOption = () => {
-        setGenre('')
-        setYear('')
-        setCountry('')
-
-        setMovies([])
+        setFilters({ genre: '', year: '', country: '', type: category })
+        setInputKey(inputKey + 1)
+        setInputDisabled(false)
+        setIsClearBtn(!isClearBtn)
         dispatch({
             type: 'SET_OPTIONS',
             payload: {
@@ -58,25 +85,17 @@ export const SearchParams: React.FC<Props> = ({category}) => {
 
     useEffect(() => {
         fetchFilms()
-    }, [activeConfirm])
-
-    useEffect(() => {
-        year ? setInputDisabled(true) : setInputDisabled(false)
-    }, [year]);
-
+    }, [activeConfirm, isClearBtn])
 
     const dispatch = useDispatch()
 
+    const handleYearSelect = (selectedYear: string) => {
+        setFilters(prev => ({ ...prev, year: selectedYear }));
+        setInputDisabled(true)
+    }
+
     const handleConfirmBtn = () => {
         setActiveConfirm(!activeConfirm)
-
-        dispatch({
-            type: 'SET_OPTIONS',
-            payload: {
-                movies: movies,
-                loading: false
-            }
-        })
     }
 
     return (
@@ -88,8 +107,8 @@ export const SearchParams: React.FC<Props> = ({category}) => {
                     {(
                         movieSettings.map((genreItem) =>
                             (
-                                <button onClick={() => setGenre(genreItem.value)}
-                                        className={cn(styles.genre, genre === genreItem.value ? styles.active : null)}
+                                <button onClick={() => setFilters(prev => ({ ...prev, genre: genreItem.value}))}
+                                        className={cn(styles.genre, filters.genre === genreItem.value ? styles.active : null)}
                                         key={genreItem.value}>{genreItem.label}</button>
                             ))
                     )}
@@ -102,12 +121,13 @@ export const SearchParams: React.FC<Props> = ({category}) => {
                 <div className={styles.list}>
                     {(
                         movieYears.map((yearItem) => (
-                            <button onClick={() => setYear(yearItem.value)}
-                                    className={cn(styles.genre, year === yearItem.value ? styles.active : null)}
+                            <button onClick={() => handleYearSelect(yearItem.value)}
+                                    className={cn(styles.genre, filters.year === yearItem.value ? styles.active : null)}
                                     key={yearItem.index}>{yearItem.value}</button>
                         ))
                     )}
                     {(<input
+                        key={inputKey}
                         disabled={inputDisabled}
                         inputMode="numeric"
                         maxLength={4}
@@ -127,8 +147,8 @@ export const SearchParams: React.FC<Props> = ({category}) => {
                 <div className={styles.list}>
                     {(
                         movieCountries.map((countryItem) => (
-                            <button onClick={() => setCountry(countryItem.value)}
-                                    className={cn(styles.genre, country === countryItem.value ? styles.active : null)}
+                            <button onClick={() => setFilters(prev => ({...prev, country: countryItem.value}))}
+                                    className={cn(styles.genre, filters.country === countryItem.value ? styles.active : null)}
                                     key={countryItem.index}>{countryItem.value}</button>
                         ))
                     )}

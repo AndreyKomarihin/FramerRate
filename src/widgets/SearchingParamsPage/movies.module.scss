@@ -17,3 +17,16 @@
   font-weight: bold;
   user-select: none;
 }
+
+.filmCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 64px;
+  margin-bottom: 60px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 90%;
+
+  gap: 40px;
+}

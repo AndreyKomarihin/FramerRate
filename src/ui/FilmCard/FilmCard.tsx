@@ -5,7 +5,7 @@ import styles from './FilmCard.module.scss'
 import {useEffect, useState} from "react";
 import cn from "classnames";
 import {useRouter} from "next/navigation";
-import {HeartFilled, HeartOutlined} from "@ant-design/icons";
+import {ClockCircleOutlined, HeartFilled, HeartOutlined} from "@ant-design/icons";
 import { MouseEvent } from 'react';
 
 interface Props {
@@ -107,10 +107,10 @@ export const FilmCard: React.FC<Props> = ({
                 styles.movieImg,
                 mouseEnter && styles.hidden
             )} src={image} alt={''}/>
-            <div className={cn(styles.rating, mouseEnter && styles.ratingBlur)}>
+            {rate === 0 ? <ClockCircleOutlined className={cn(styles.rating, mouseEnter && styles.ratingBlur)} style={{fontSize: '32px'}} /> : <div className={cn(styles.rating, mouseEnter && styles.ratingBlur)}>
                 <span className={styles.integerPart}>{integerPart}.</span>
                 <span className={styles.decimalPart}>{decimalPart}</span>
-            </div>
+            </div>}
             {!mouseEnter && (
                 isFavorite ?
                     <HeartFilled
@@ -139,8 +139,7 @@ export const FilmCard: React.FC<Props> = ({
                         <Text className={styles.movieInfoText}>{year} г.</Text>
                         <Text className={styles.movieInfoText}>{country}</Text>
                         <Text className={cn(styles.genres, styles.movieInfoText)}>
-                            {genres === 'короткометражка' && type === 'tv-series' ? 'короткометражный' : genres}
-                            {type === 'tv-series' ? ' сериал' : null}
+                            {genres}
                         </Text>
                     </div>
                     {<HeartOutlined

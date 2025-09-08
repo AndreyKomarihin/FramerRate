@@ -17,7 +17,7 @@ const defaultState: SearchState = {
     filters: {
         genre: '',
         year: '',
-        country: ''
+        country: '',
     },
     movies: [],
     loading: false,

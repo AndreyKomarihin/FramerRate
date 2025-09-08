@@ -37,8 +37,8 @@ export const movieSettings = [
     {   value: 'криминал',
         label: 'Криминал'
     },
-    {   value: 'вестерн',
-        label: 'Вестерн'
+    {   value: 'аниме',
+        label: 'Аниме'
     },
     {   value: 'биографический',
         label: 'Биографический'

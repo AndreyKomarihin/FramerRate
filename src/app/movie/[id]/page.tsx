@@ -90,7 +90,7 @@ export default function Movieinfo() {
                             <ul className={styles.info}>
                                 <li className={styles.infoText}>{movie?.type === 'movie' ? 'Фильм' : 'Сериал'}</li>
                                 <li className={styles.infoText}>{movie?.genres}</li>
-                                <li className={styles.infoText}>{movie?.year} г.</li>
+                                <li className={styles.infoText}>{movie?.year}</li>
                             </ul>
                             <ul>
                                 <li className={styles.infoText}>{movie?.country}</li>
