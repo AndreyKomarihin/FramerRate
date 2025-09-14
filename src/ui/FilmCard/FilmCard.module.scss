@@ -116,3 +116,37 @@
 .favoritesTrue {
   color: #c10000;
 }
+
+@media (max-width: 768px) {
+  .card {
+    padding: 6px;
+
+    height: 240px;
+    width: 140px;
+    border-radius: 12px;
+  }
+
+  .movieImg {
+    border-radius: 12px;
+  }
+
+  .rating {
+    padding:8px;
+  }
+
+  .integerPart {
+    font-size: 18px;
+  }
+
+  .decimalPart {
+    font-size: 12px;
+  }
+
+  .favorites {
+    padding: 0 12px 15px 0;
+  }
+
+  .hidden {
+    filter: none;
+  }
+}

@@ -1,4 +1,5 @@
 .poster {
+
   width: 100%;
   height: 85vh;
   background-repeat: no-repeat;
@@ -15,7 +16,7 @@
   padding-top: 80px;
   padding-left: 100px;
 
-  background: linear-gradient(to right, #101223, 85%, rgba(255, 192, 203, 0));
+  background: linear-gradient(to right, #101223, 80%, rgba(255, 192, 203, 0));
   width: 50%;
   height: 100%;
   box-shadow:
@@ -23,6 +24,13 @@
           inset 0 -100px 70px -70px #101223;
 
   gap: 42px;
+}
+
+.title {
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -2.2%;
 }
 
 .posterRateBox {
@@ -63,7 +71,10 @@
 
 .rating {
   padding: 12px;
-  width: fit-content;
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -2.2%;
 
   background-color: #010315;
   border-radius: 24px;
@@ -100,15 +111,125 @@
 .descriptionBox {
   display: flex;
   flex-direction: column;
-  padding: 0 100px;
-
+  padding: 0 100px 160px 0;
   margin-top: 80px;
-  padding-bottom: 160px;
 
   gap: 24px;
 }
 
 .description {
+  font-size: 20px;
+}
 
+.descriptionTitle {
+  font-size: 32px;
+}
+
+@media (max-width: 768px) {
+  .poster {
+    height: 60vh;
+    background-size: 150%;
+  }
+
+  .movieInfoContainer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    padding-left: 25px;
+    padding-right: 25px;
+
+    width: 100%;
+    background: none;
+    box-shadow: none;
+
+    gap: 42px;
+  }
+
+  .mobilePoster {
+    width: 100%;
+    height: 60vh;
+
+    border-top-left-radius: 128px;
+    border-bottom-right-radius: 128px;
+  }
+
+  .ratingText {
+    font-size: 24px;
+  }
+
+  .rating {
+    font-size: 28px;
+    border-radius: 12px;
+  }
+
+  .ratingDecimal {
+    font-size: 24px;
+  }
+
+  .mobileTitleBox {
+    display: flex;
+    justify-content: space-around;
+    gap: 20%;
+  }
+
+  .posterRateBox {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .miniPosterBox {
+    display: none;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .infoBox {
+    gap: 48px;
+  }
+
+  .info {
+    gap: 12px;
+  }
+
+  .infoText {
+    font-size: 18px;
+
+    &::marker {
+      margin-right: 0;
+    }
+  }
+
+  .descriptionBox {
+    padding: 0 0 160px 0;
+    margin-top: 0;
+  }
+
+  .description {
+    height: calc(25px * 3);
+
+    color: #a3a3a3;
+    line-height: 25px;
+    overflow: hidden;
+    gap: 24px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .descriptionTitle {
+    font-size: 28px;
+  }
+
+  .showDescription {
+    height: auto;
+    overflow: initial;
+    display: initial;
+    -webkit-line-clamp: initial;
+    -webkit-box-orient: initial;
+  }
 }
 

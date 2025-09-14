@@ -9,6 +9,7 @@ import {FilmCard} from "@/ui/FilmCard/FilmCard";
 import cn from "classnames";
 import {ConfigProvider, Pagination, ThemeConfig} from "antd";
 import {paginationTheme} from "@/app/shared/constants/paginationTheme";
+import {useMedia} from "@/app/shared/hooks/useMedia";
 
 
 export default function Search () {
@@ -24,6 +25,8 @@ export default function Search () {
     const [currentPage, setCurrentPage] = useState<number | null>()
 
     const searchRef = useRef('')
+
+    const {isMobile} = useMedia()
 
     useEffect(() => {
         searchRef.current = inputSearch
@@ -143,7 +146,7 @@ export default function Search () {
                                             key={movie.id}
                                             id={movie.id}
                                             rate={movie.rating.kp}
-                                            image={movie.poster?.url || 'https://via.placeholder.com/300x450'}
+                                            image={movie.poster?.url || 'https://placehold.co/400x700/010315/FFFFFF?text=:('}
                                             name={movie.name}
                                             country={movie.countries[0]?.name}
                                             genres={movie.genres[0]?.name}

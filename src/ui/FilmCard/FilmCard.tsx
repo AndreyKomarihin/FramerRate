@@ -7,6 +7,7 @@ import cn from "classnames";
 import {useRouter} from "next/navigation";
 import {ClockCircleOutlined, HeartFilled, HeartOutlined} from "@ant-design/icons";
 import { MouseEvent } from 'react';
+import {useMedia} from "@/app/shared/hooks/useMedia";
 
 interface Props {
     id: number,
@@ -52,6 +53,8 @@ export const FilmCard: React.FC<Props> = ({
     const [isMounted, setIsMounted] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false)
 
+    const {isMobile, isTablet} = useMedia()
+
     const router = useRouter()
 
     useEffect(() => {
@@ -65,11 +68,11 @@ export const FilmCard: React.FC<Props> = ({
     }, [])
 
     const handleMouseEnter = () => {
-        setMouseEnter(true)
+        if (!isTablet && !isMobile) { setMouseEnter(true)}
     }
 
     const handleMouseLeave = () => {
-        setMouseEnter(false)
+        if (!isTablet && !isMobile) {setMouseEnter(false)}
     }
 
     const handleClick = () => {
@@ -107,7 +110,7 @@ export const FilmCard: React.FC<Props> = ({
                 styles.movieImg,
                 mouseEnter && styles.hidden
             )} src={image} alt={''}/>
-            {rate === 0 ? <ClockCircleOutlined className={cn(styles.rating, mouseEnter && styles.ratingBlur)} style={{fontSize: '32px'}} /> : <div className={cn(styles.rating, mouseEnter && styles.ratingBlur)}>
+            {rate === 0 ? <ClockCircleOutlined className={cn(styles.rating, mouseEnter && styles.ratingBlur)} style={{fontSize: isMobile ? '24px' : '32px'}} /> : <div className={cn(styles.rating, mouseEnter && styles.ratingBlur)}>
                 <span className={styles.integerPart}>{integerPart}.</span>
                 <span className={styles.decimalPart}>{decimalPart}</span>
             </div>}
@@ -118,14 +121,14 @@ export const FilmCard: React.FC<Props> = ({
                         className={cn(styles.favorites, localStorage.getItem(JSON.stringify({
                             id, name, image, rate, country, genres, year, series, type, description
                         })) ? styles.favoritesTrue : null)}
-                        style={{fontSize: '32px'}
+                        style={{fontSize: isMobile ? '24px' : '32px'}
                         }/>
                     : <HeartOutlined
                         onClick={(e) => handlerClickFavorite(e)}
                         className={cn(styles.favorites, localStorage.getItem(JSON.stringify({
                             id, name, image, rate, country, genres, year, series, type, description
                         })) ? styles.favoritesTrue : null)}
-                        style={{fontSize: '32px'}
+                        style={{fontSize: isMobile ? '24px' : '32px'}
                     }/>
                     )}
 
@@ -147,7 +150,7 @@ export const FilmCard: React.FC<Props> = ({
                         className={cn(styles.favorites, localStorage.getItem(JSON.stringify({
                             id, name, image, rate, country, genres, year, series, type, description
                         })) ? styles.favoritesTrue : null)}
-                        style={{fontSize: '32px'}
+                        style={{fontSize: isMobile ? '24px' : '32px'}
                         }/>}
                 </>
             )}

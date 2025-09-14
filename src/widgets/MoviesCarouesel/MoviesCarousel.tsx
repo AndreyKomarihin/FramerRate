@@ -5,6 +5,8 @@ import Carousel from "react-multi-carousel";
 import {FilmCard} from "@/ui/FilmCard/FilmCard";
 import {useState} from "react";
 import {Movie} from "@/app/api/popularMovies";
+import {carouselResponsive} from "@/app/shared/constants/constants";
+import {useMedia} from "@/app/shared/hooks/useMedia";
 
 interface Props {
     isLoading: boolean
@@ -14,30 +16,10 @@ interface Props {
 }
 
 
-const  responsive  =  {
-    superLargeDesktop: {
-        breakpoint: { max: 4000, min: 3000 },
-        items: 5,
-        partialVisibilityGutter: 40
-    },
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 5.2,
-        partialVisibilityGutter: 40
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 2,
-        partialVisibilityGutter: 40
-    },
-    mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 1,
-        partialVisibilityGutter: 40
-    }
-}
 
 export const MoviesCarousel: React.FC<Props> = ({ isLoading, error, movies, title}) => {
+
+    const {isMobile} = useMedia()
 
     return (
         <div className={styles.moviesList}>
@@ -49,12 +31,12 @@ export const MoviesCarousel: React.FC<Props> = ({ isLoading, error, movies, titl
                 <Text color="danger">{error}</Text>
             ) : (<div className={styles.carousel}>
                 <div className={styles.category}>
-                    <Text className={styles.categoryText} size={38}>{title}</Text>
-                    <DoubleRightOutlined style={{fontSize: '32px'}}/>
+                    <h3 className={styles.categoryText}>{title}</h3>
+                    <DoubleRightOutlined style={{fontSize: isMobile ? '24px' : '32px'}}/>
                 </div>
                 {error ? (<Text>{error}</Text>) :
                     <Carousel className={styles.carouselWrapper}
-                              responsive={responsive}
+                              responsive={carouselResponsive}
                               infinite={true}
                               autoPlay={true}
                               autoPlaySpeed={2000}
@@ -84,7 +66,6 @@ export const MoviesCarousel: React.FC<Props> = ({ isLoading, error, movies, titl
                                               year={movie.year}
                                               series={movie.seriesLength ?? undefined}
                                               type={movie.type}
-                                              movie={movie}
                                               description={movie.description}
                                     />
                                 )

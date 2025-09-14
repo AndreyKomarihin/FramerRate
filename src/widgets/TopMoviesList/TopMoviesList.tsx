@@ -4,6 +4,7 @@ import {MoviesCarousel} from "@/widgets/MoviesCarouesel/MoviesCarousel"
 import {fetchPopularContent, Movie} from "@/app/api/popularMovies"
 import styles from './TopMoviesList.module.scss'
 import {Text} from "@/ui/Text/Text";
+import cn from "classnames";
 
 export const TopMoviesList = () => {
 
@@ -53,12 +54,12 @@ export const TopMoviesList = () => {
         <div>
             <MoviesCarousel isLoading={isLoading.all} error={error} movies={allPopular} title='Выбор пользователей'/>
             <div className={styles.promoMovieContainer}>
-                <Text className={styles.title}>А что это такое?</Text>
+                <p className={styles.title}>А что это такое?</p>
                 <ul className={styles.promoMovieBox}>
                     <li><a><img className={styles.promoMovie} src={'/hutor1.webp'}/></a></li>
-                    <li><a><img className={styles.promoMovie} src={'/hutor2.webp'}/></a></li>
+                    <li><a><img className={cn (styles.promoMovie, styles.hide)} src={'/hutor2.webp'}/></a></li>
                     <li><a><img className={styles.promoMovie} src={'/hutor3.webp'}/></a></li>
-                    <li><a><img className={styles.promoMovie} src={'/hutor4.webp'}/></a></li>
+                    <li><a><img className={cn (styles.promoMovie, styles.hide)} src={'/hutor4.webp'}/></a></li>
                     <li><a><img className={styles.promoMovie} src={'/hutor5.webp'}/></a></li>
                 </ul>
             </div>

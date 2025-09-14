@@ -30,3 +30,9 @@
 
   gap: 40px;
 }
+
+@media (max-width: 768px) {
+  .filmCardContainer {
+    justify-content: space-around;
+  }
+}

@@ -1,22 +1,22 @@
-export const CAROUSEL_RESPONSIVE = {
+export const carouselResponsive = {
     superLargeDesktop: {
-        breakpoint: { max: 4000, min: 3000 },
-        items: 5,
-        partialVisibilityGutter: 40
-    },
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
+        breakpoint: { max: 3000, min: 1920 },
         items: 5.2,
         partialVisibilityGutter: 40
     },
+    desktop: {
+        breakpoint: { max: 1920, min: 1080 },
+        items: 4,
+        partialVisibilityGutter: 40
+    },
     tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 2,
+        breakpoint: { max: 1080, min: 550 },
+        items: 3.5,
         partialVisibilityGutter: 40
     },
     mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 1,
+        breakpoint: { max: 550, min: 0 },
+        items: 2.3,
         partialVisibilityGutter: 40
     }
 };

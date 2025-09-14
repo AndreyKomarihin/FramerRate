@@ -35,3 +35,18 @@
   border-radius: 24px;
   background-color: rgba(108, 0, 0, 0.75);
 }
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 46px;
+  }
+
+  .subTitle {
+    font-size: 36px;
+  }
+
+  .accent {
+    padding: 10px 20px;
+  }
+
+}

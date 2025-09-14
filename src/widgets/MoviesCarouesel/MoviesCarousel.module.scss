@@ -12,6 +12,8 @@
 
 .categoryText {
   display: inline-block;
+
+  font-size: 32px;
   height: auto;
   font-weight: 400;
   text-transform: uppercase;
@@ -127,4 +129,35 @@
   text-align: center;
   width: 40%;
   border-radius: 48px;
+}
+
+@media (max-width: 768px) {
+
+  .category {
+    margin-top: 82px;
+  }
+
+  .categoryText {
+    font-size: 24px;
+  }
+
+  .carouselContainer {
+    &::before {
+      box-shadow: none;
+    }
+    &::after {
+      box-shadow: none;
+    }
+  }
+
+  .carouselSkeleton {
+    position: relative;
+    margin: 163px auto 0 auto;
+
+    max-width: 85%;
+    background-color: rgba(1, 3, 21, 0.51);
+    height: 240px;
+    box-shadow: inset 10px 0 25px #101223, inset -10px 0 25px #101223;
+    overflow: hidden;
+  }
 }

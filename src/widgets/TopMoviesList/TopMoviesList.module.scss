@@ -7,8 +7,6 @@
 .promoMovieBox {
   display: flex;
 
-
-
   gap: 24px;
 }
 
@@ -32,4 +30,29 @@
   font-family: var(--font-roboto-condensed);
   font-weight: 500;
   text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+
+  .promoMovieContainer {
+    margin-top: 82px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .promoMovieBox {
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .promoMovie {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hide {
+    display: none;
+  }
 }

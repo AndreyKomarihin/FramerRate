@@ -6,6 +6,11 @@ import {Text} from "@/ui/Text/Text";
 import Image from "next/image";
 import {useEffect, useState} from "react";
 import {Movie} from "@/app/api/popularMovies";
+import {useMediaQuery} from "@/app/shared/hooks/useMediaQuery";
+import {useMedia} from "@/app/shared/hooks/useMedia";
+import cn from "classnames";
+import {DownOutlined, UpOutlined} from "@ant-design/icons";
+import {describe} from "node:test";
 
 type MovieInfo = {
     id: number
@@ -28,6 +33,9 @@ export default function Movieinfo() {
     const [movie, setMovie] = useState<MovieInfo | null>()
     const [loading, setLoading] = useState(true)
     const [integerPart, decimalPart] = movie?.rate.toFixed(1).split('.')  ?? ['0', '0']
+    const [showDescription, setShowDescription] = useState<boolean>(false)
+
+    const {isMobile} = useMedia()
 
     useEffect(() => {
         console.log('ID from params:', params.id)
@@ -64,11 +72,12 @@ export default function Movieinfo() {
     }, [params.id])
 
 
+    console.log(showDescription)
 
     return (
         <>
         <Header navigate = {(route) => router.push(route)}/>
-            <main>
+            {!isMobile ? <main>
                 <div className={styles.poster}
                      style={{backgroundImage: `url(${movie?.image})`}}>
                     <div className={styles.movieInfoContainer}>
@@ -81,11 +90,11 @@ export default function Movieinfo() {
                             </div>
                             <div className={styles.ratingBox}>
                                 <p className={styles.ratingText}>Рейтинг</p>
-                                <Text size={38} className={styles.rating}>{integerPart}.<span
-                                    className={styles.ratingDecimal}>{decimalPart}</span></Text>
+                                <p className={styles.rating}>{integerPart}.<span
+                                    className={styles.ratingDecimal}>{decimalPart}</span></p>
                             </div>
                         </div>
-                        <Text className={styles.title} size={38}>{movie?.name}</Text>
+                        <h3 className={styles.title}>{movie?.name}</h3>
                         <div className={styles.infoBox}>
                             <ul className={styles.info}>
                                 <li className={styles.infoText}>{movie?.type === 'movie' ? 'Фильм' : 'Сериал'}</li>
@@ -97,14 +106,65 @@ export default function Movieinfo() {
                                 <li className={styles.infoText}>{movie?.series ? `${movie?.series} серий` : null}</li>
                             </ul>
                         </div>
+                        { movie?.description ?
+                        <div className={styles.descriptionBox}>
+                            <Text size={38}>Описание:</Text>
+                            <Text className={styles.description} size={20}>{movie?.description}</Text>
+                        </div>
+                            : null
+                        }
                     </div>
-                    <div className={styles.descriptionBox}>
-                        <Text size={38}>Описание:</Text>
-                        <Text className={styles.description} size={20}>{movie?.description}</Text>
-                    </div>
-
                 </div>
             </main>
+                :
+                <main>
+                    <div className={styles.poster}>
+                        <img className={styles.mobilePoster} src={movie?.image} alt={'poster'}/>
+                        <div className={styles.movieInfoContainer}>
+                            <div className={styles.mobileTitleBox}>
+                                <h3 className={styles.title}>{movie?.name}</h3>
+                                <div className={styles.ratingBox}>
+                                    <p className={styles.ratingText}>Рейтинг</p>
+                                    <p className={styles.rating}>{integerPart}.<span
+                                        className={styles.ratingDecimal}>{decimalPart}</span></p>
+                                </div>
+                            </div>
+                            <div className={styles.infoBox}>
+                                <ul className={styles.info}>
+                                    <li className={styles.infoText}>{movie?.type === 'movie' ? 'Фильм' : 'Сериал'}</li>
+                                    <li className={styles.infoText}>{movie?.genres}</li>
+                                    <li className={styles.infoText}>{movie?.year}</li>
+                                </ul>
+                                <ul>
+                                    <li className={styles.infoText}>Страна: {movie?.country}</li>
+                                    <li className={styles.infoText}>{movie?.series ? 'Всего серий:' : null} {movie?.series}</li>
+                                </ul>
+                            </div>
+                            { movie?.description ?
+                            <div className={styles.descriptionBox}>
+                                <p className={styles.descriptionTitle}>Описание:</p>
+                                <p className={cn (styles.description, showDescription ? styles.showDescription : null)}>{movie?.description}</p>
+                                <button onClick={() => setShowDescription(!showDescription)}>
+                                    {showDescription ?
+                                        <>
+                                            <p>Скрыть</p>
+                                            <UpOutlined />
+                                        </>
+                                        :
+                                        <>
+                                            <p>Показать</p>
+                                            <DownOutlined />
+                                        </>
+                                    }
+                                </button>
+                            </div>
+                                : null
+                            }
+                        </div>
+
+                    </div>
+                </main>
+            }
         </>
     )
 }
